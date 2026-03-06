@@ -1,13 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package javalab;
+// Java Program to demonstrate Multithreading
+// a) By implementing Runnable Interface
+// b) By extending Thread Class
 
-/**
- *
- * @author kandelmilan
- */
+// a) Implementing Runnable Interface
+class MyRunnable implements Runnable {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread using Runnable Interface: " + i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+// b) Extending Thread Class
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread using Thread Class: " + i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
 public class Q2007 {
-    
+    public static void main(String[] args) {
+
+        // Runnable Interface
+        MyRunnable r = new MyRunnable();
+        Thread t1 = new Thread(r);
+
+        // Thread Class
+        MyThread t2 = new MyThread();
+
+        // Start Threads
+        t1.start();
+        t2.start();
+    }
 }
