@@ -1,8 +1,15 @@
+
+/*
+Write a Java program to write a sentence "Java is Object oriented programming" using FileOutputStream class and Read 
+this file using FileInputStream class and final total number of vowel in the file.
+*/
+
+
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Q21 {
+public class Q2005 {
     public static void main(String[] args) {
         String text = "Java is Object oriented programming";
         int vowelCount = 0;

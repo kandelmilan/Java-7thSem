@@ -51,7 +51,7 @@ class Duck implements Flyer, Swimmer { // Multiple inheritance via interfaces
 }
 
 // Main Class
-public class Q18 {
+public class Q2001 {
     public static void main(String[] args) {
         System.out.println("Single-level Inheritance");
         Dog dog = new Dog();

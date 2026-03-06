@@ -2,7 +2,7 @@
 Write a java program to demostrate ArithmeticException,ArrayIndexOutOfBoundsException, and NumberFormatException class.
 */
 package javalab;
-public class Q20 {
+public class Q2003 {
     public static void main(String[] args) {
         
         // 1. ArithmeticException
