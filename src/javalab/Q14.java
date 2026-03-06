@@ -1,7 +1,7 @@
 // Write a Java Program to initialize and display with sum of jagged array
 package javalab;
 
-public class Q4 {
+public class Q14 {
 
     public static void main(String[] args) {
 

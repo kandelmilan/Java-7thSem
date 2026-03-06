@@ -23,7 +23,7 @@ class Adder {
 }
 
 // Main class
-public class Q7 {
+public class Q17 {
 
     public static void main(String[] args) {
 

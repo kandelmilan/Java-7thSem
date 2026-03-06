@@ -27,7 +27,7 @@ class Circle {
 }
 
 // Separate class containing main method
-public class Q5 {
+public class Q15 {
 
     public static void main(String[] args) {
 

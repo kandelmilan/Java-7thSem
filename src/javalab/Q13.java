@@ -8,7 +8,7 @@ package javalab;
  *
  * @author kandelmilan
  */
-public class Q3 {
+public class Q13 {
     public static void main(String[] args){
         int[][] max1=new int[][]{{1,2,3},{4,5,6},{7,8,9}};
         int[][] max2=new int[][]{{2,2,2},{2,2,2},{2,2,2}};

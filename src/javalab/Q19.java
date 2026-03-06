@@ -7,6 +7,6 @@ package javalab;
  *
  * @author kandelmilan
  */
-public class Q9 {
+public class Q19 {
     
 }

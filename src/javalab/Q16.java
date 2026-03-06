@@ -38,7 +38,7 @@ class Distance {
 }
 
 // Separate class with main method
-public class Q6 {
+public class Q16 {
 
     public static void main(String[] args) {
 
