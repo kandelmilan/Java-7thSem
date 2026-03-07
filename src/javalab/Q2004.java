@@ -1,39 +1,41 @@
-// Java Program to Write and Read File using FileWriter and FileReader
+/*
+Write a Java program that will read balance and withdraw amount from keyboard
+and display the remaining balance on screen if the balance is greater than withdraw
+amount otherwise throw an exception with appropriate message.
+ */
+package javalab;
+import java.util.Scanner;
 
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
+class InsufficientBalanceException extends Exception {
+    public InsufficientBalanceException(String message) {
+        super(message);
+    }
+}
 
 public class Q2004 {
     public static void main(String[] args) {
 
-        // Writing to file
+        Scanner sc = new Scanner(System.in);
+
         try {
-            FileWriter writer = new FileWriter("sample.txt");
-            writer.write("Hello, this is a file handling example in Java.\n");
-            writer.write("FileWriter is used to write data to a file.");
-            writer.close();
-            System.out.println("Data written to file successfully.");
-        } 
-        catch (IOException e) {
-            System.out.println("Error while writing to file.");
-        }
+            System.out.print("Enter Balance: ");
+            double balance = sc.nextDouble();
 
-        // Reading from file
-        try {
-            FileReader reader = new FileReader("sample.txt");
-            int character;
+            System.out.print("Enter Withdraw Amount: ");
+            double withdraw = sc.nextDouble();
 
-            System.out.println("\nReading data from file:");
-
-            while ((character = reader.read()) != -1) {
-                System.out.print((char) character);
+            if (withdraw > balance) {
+                throw new InsufficientBalanceException("Error: Insufficient Balance!");
             }
 
-            reader.close();
+            double remaining = balance - withdraw;
+            System.out.println("Remaining Balance = " + remaining);
+
         } 
-        catch (IOException e) {
-            System.out.println("Error while reading the file.");
+        catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
         }
+
+        sc.close();
     }
 }

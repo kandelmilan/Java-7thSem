@@ -1,47 +1,70 @@
-// Java Program to demonstrate Multithreading
-// a) By implementing Runnable Interface
-// b) By extending Thread Class
 
-// a) Implementing Runnable Interface
-class MyRunnable implements Runnable {
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Thread using Runnable Interface: " + i);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-            }
-        }
-    }
-}
 
-// b) Extending Thread Class
-class MyThread extends Thread {
-    public void run() {
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Thread using Thread Class: " + i);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-            }
-        }
-    }
-}
+/*Write a java program to save 3 student record(such as Roll,name,address,and phone number)
+into file student.txt and display the student record whose address is Kritipur*/
 
-public class Q2007 {
+
+import java.io.*;
+import java.util.*;
+
+class Q2007 {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        // Runnable Interface
-        MyRunnable r = new MyRunnable();
-        Thread t1 = new Thread(r);
+        try {
+            // Writing student records to file
+            FileWriter fw = new FileWriter("student.txt");
 
-        // Thread Class
-        MyThread t2 = new MyThread();
+            System.out.println("Enter details of 3 students:");
 
-        // Start Threads
-        t1.start();
-        t2.start();
+            for (int i = 1; i <= 3; i++) {
+                System.out.println("\nStudent " + i);
+
+                System.out.print("Roll: ");
+                int roll = sc.nextInt();
+                sc.nextLine(); // consume newline
+
+                System.out.print("Name: ");
+                String name = sc.nextLine();
+
+                System.out.print("Address: ");
+                String address = sc.nextLine();
+
+                System.out.print("Phone: ");
+                String phone = sc.nextLine();
+
+                // Save record in file
+                fw.write(roll + "," + name + "," + address + "," + phone + "\n");
+            }
+
+            fw.close();
+            System.out.println("\nStudent records saved successfully.");
+
+            // Reading records from file
+            FileReader fr = new FileReader("student.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String line;
+            System.out.println("\nStudents whose address is Kirtipur:\n");
+
+            while ((line = br.readLine()) != null) {
+                String data[] = line.split(",");
+
+                if (data[2].equalsIgnoreCase("Kritipur")) {
+                    System.out.println("Roll: " + data[0]);
+                    System.out.println("Name: " + data[1]);
+                    System.out.println("Address: " + data[2]);
+                    System.out.println("Phone: " + data[3]);
+                    System.out.println();
+                }
+            }
+
+            br.close();
+
+        } catch (IOException e) {
+            System.out.println("File Error: " + e);
+        }
+
+        sc.close();
     }
 }

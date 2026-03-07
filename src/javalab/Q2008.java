@@ -1,57 +1,52 @@
-/*
-Write a Java program to demonstrate the concept of synchronization in multithreaded application
- */
-package javalab;
 
-class Table {
 
-    // synchronized method
-    synchronized void printTable(int n) {
+/* 
+
+Write a Java Program to demonstrate Multithreading apllication by following ways
+a) By implementing Runnable Interface
+b) By extending Thread Class
+
+*/
+
+
+class MyRunnable implements Runnable {
+    public void run() {
         for (int i = 1; i <= 5; i++) {
-            System.out.println(n * i);
+            System.out.println("Thread using Runnable Interface: " + i);
             try {
-                Thread.sleep(400);
-            } catch (Exception e) {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
                 System.out.println(e);
             }
         }
     }
 }
 
-// First Thread
-class MyThread1 extends Thread {
-    Table t;
-
-    MyThread1(Table t) {
-        this.t = t;
-    }
-
+// b) Extending Thread Class
+class MyThread extends Thread {
     public void run() {
-        t.printTable(5);
-    }
-}
-
-// Second Thread
-class MyThread2 extends Thread {
-    Table t;
-
-    MyThread2(Table t) {
-        this.t = t;
-    }
-
-    public void run() {
-        t.printTable(10);
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread using Thread Class: " + i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
     }
 }
 
 public class Q2008 {
     public static void main(String[] args) {
 
-        Table obj = new Table();
+        // Runnable Interface
+        MyRunnable r = new MyRunnable();
+        Thread t1 = new Thread(r);
 
-        MyThread1 t1 = new MyThread1(obj);
-        MyThread2 t2 = new MyThread2(obj);
+        // Thread Class
+        MyThread t2 = new MyThread();
 
+        // Start Threads
         t1.start();
         t2.start();
     }

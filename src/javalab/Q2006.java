@@ -1,66 +1,39 @@
-// Java Program to Save Student Records and Display Students from Kirtipur
+// Java Program to Write and Read File using FileWriter and FileReader
 
-import java.io.*;
-import java.util.*;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
 
-class Q2006 {
+public class Q2006 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
+        // Writing to file
         try {
-            // Writing student records to file
-            FileWriter fw = new FileWriter("student.txt");
-
-            System.out.println("Enter details of 3 students:");
-
-            for (int i = 1; i <= 3; i++) {
-                System.out.println("\nStudent " + i);
-
-                System.out.print("Roll: ");
-                int roll = sc.nextInt();
-                sc.nextLine(); // consume newline
-
-                System.out.print("Name: ");
-                String name = sc.nextLine();
-
-                System.out.print("Address: ");
-                String address = sc.nextLine();
-
-                System.out.print("Phone: ");
-                String phone = sc.nextLine();
-
-                // Save record in file
-                fw.write(roll + "," + name + "," + address + "," + phone + "\n");
-            }
-
-            fw.close();
-            System.out.println("\nStudent records saved successfully.");
-
-            // Reading records from file
-            FileReader fr = new FileReader("student.txt");
-            BufferedReader br = new BufferedReader(fr);
-
-            String line;
-            System.out.println("\nStudents whose address is Kirtipur:\n");
-
-            while ((line = br.readLine()) != null) {
-                String data[] = line.split(",");
-
-                if (data[2].equalsIgnoreCase("Kritipur")) {
-                    System.out.println("Roll: " + data[0]);
-                    System.out.println("Name: " + data[1]);
-                    System.out.println("Address: " + data[2]);
-                    System.out.println("Phone: " + data[3]);
-                    System.out.println();
-                }
-            }
-
-            br.close();
-
-        } catch (IOException e) {
-            System.out.println("File Error: " + e);
+            FileWriter writer = new FileWriter("sample.txt");
+            writer.write("Hello, this is a file handling example in Java.\n");
+            writer.write("FileWriter is used to write data to a file.");
+            writer.close();
+            System.out.println("Data written to file successfully.");
+        } 
+        catch (IOException e) {
+            System.out.println("Error while writing to file.");
         }
 
-        sc.close();
+        // Reading from file
+        try {
+            FileReader reader = new FileReader("sample.txt");
+            int character;
+
+            System.out.println("\nReading data from file:");
+
+            while ((character = reader.read()) != -1) {
+                System.out.print((char) character);
+            }
+
+            reader.close();
+        } 
+        catch (IOException e) {
+            System.out.println("Error while reading the file.");
+        }
     }
 }
