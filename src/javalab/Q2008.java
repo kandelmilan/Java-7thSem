@@ -1,7 +1,7 @@
 
 
 /* 
-
+f
 Write a Java Program to demonstrate Multithreading apllication by following ways
 a) By implementing Runnable Interface
 b) By extending Thread Class

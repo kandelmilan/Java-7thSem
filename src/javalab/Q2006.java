@@ -10,8 +10,7 @@ public class Q2006 {
         // Writing to file
         try {
             FileWriter writer = new FileWriter("sample.txt");
-            writer.write("Hello, this is a file handling example in Java.\n");
-            writer.write("FileWriter is used to write data to a file.");
+            writer.write("Hi,I am Milan Kandel learning java\n");
             writer.close();
             System.out.println("Data written to file successfully.");
         } 
