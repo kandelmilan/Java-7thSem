@@ -35,11 +35,11 @@ public class lab3001 implements ActionListener{
         t2.setBounds(150,100,100,20);
        
         
-        b1.setBounds(50,200,80,30);
-        b2.setBounds(150,200,100,30);
-        
-          l3.setBounds(20,150,100,20);
-        t3.setBounds(150,150,100,20);
+    b1.setBounds(50,200,80,30);
+b2.setBounds(150,200,100,30);
+
+l3.setBounds(70,250,100,20);
+t3.setBounds(150,250,100,20);
         
         f.add(l1); 
         f.add(t1); 
