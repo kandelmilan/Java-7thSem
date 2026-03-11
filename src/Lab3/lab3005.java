@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class lab3005 {
 
-    public LayoutDemo() {
+    public lab3005() {
         JFrame f = new JFrame("Layout Manager Demo");
         f.setSize(600, 400);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
