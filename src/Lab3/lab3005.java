@@ -14,7 +14,7 @@ public class lab3005 {
     public lab3005() {
         JFrame f = new JFrame("Layout Manager Demo");
         f.setSize(600, 400);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(3);
 
         JTabbedPane tabs = new JTabbedPane();
 
@@ -73,6 +73,7 @@ public class lab3005 {
     }
 
     public static void main(String[] args) {
+        
         new lab3005();
     }
 }

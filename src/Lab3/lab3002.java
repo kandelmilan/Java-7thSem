@@ -1,3 +1,8 @@
+/*
+Write a Gui application to calculate simple interest.Use three text fields for input and fourth text fields for output.
+Your preogram should displat simple interest if the user press the mouse and compound interest if user releases the mouse.
+*/
+
 package Lab3;
 
 import javax.swing.*;
@@ -68,7 +73,7 @@ public class lab3002 implements MouseListener {
         double p = Double.parseDouble(t1.getText());
         double r = Double.parseDouble(t2.getText());
         double t = Double.parseDouble(t3.getText());
-
+        
         double ci = p * Math.pow((1 + r/100), t) - p;
 
         t4.setText(String.valueOf(ci));
