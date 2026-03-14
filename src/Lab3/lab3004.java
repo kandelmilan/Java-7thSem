@@ -3,6 +3,13 @@
 name , address , email , password , radio button for Gender,checkbox for Hobbies,Country as dropdown list,opinion as text area ,
 one button for submit) you program display the student infromation when user click on submit button.
  */
+/*
+Write a Java program using swing component to create student registration form with fields:
+Name, Address, Email, Password, Gender (Radio Button), Hobbies (Checkbox),
+Country (Dropdown), Opinion (TextArea) and Submit button.
+Display student information when user clicks submit.
+*/
+
 package Lab3;
 
 import javax.swing.*;
@@ -11,84 +18,110 @@ import java.awt.event.*;
 public class lab3004 implements ActionListener {
 
     JFrame f;
-    JLabel l1,l2,l3,l4,l5,l6,l7;
+    JLabel l1,l2,l3,l4,l5,l6,l7,l8;
+
     JTextField t1,t2,t3;
     JPasswordField p1;
+
     JRadioButton male,female;
-    JCheckBox hobby1,hobby2,hobby3;
-    JComboBox<String> countryList;
-    JTextArea opinion;
+    ButtonGroup bg;
+
+    JCheckBox h1,h2,h3;
+
+    JComboBox country;
+
+    JTextArea ta;
+
     JButton submit;
-    ButtonGroup genderGroup;
 
     public lab3004(){
 
         f = new JFrame("Student Registration Form");
-        f.setSize(500,600);
-        f.setLayout(null);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Labels
-        l1 = new JLabel("Name:");
-        l2 = new JLabel("Address:");
-        l3 = new JLabel("Email:");
-        l4 = new JLabel("Password:");
-        l5 = new JLabel("Gender:");
-        l6 = new JLabel("Hobbies:");
-        l7 = new JLabel("Country:");
-        JLabel l8 = new JLabel("Opinion:");
+        l1 = new JLabel("Name");
+        l2 = new JLabel("Address");
+        l3 = new JLabel("Email");
+        l4 = new JLabel("Password");
+        l5 = new JLabel("Gender");
+        l6 = new JLabel("Hobbies");
+        l7 = new JLabel("Country");
+        l8 = new JLabel("Opinion");
 
-        // Text Fields
         t1 = new JTextField();
         t2 = new JTextField();
         t3 = new JTextField();
+
         p1 = new JPasswordField();
 
-        // Gender Radio Buttons
         male = new JRadioButton("Male");
         female = new JRadioButton("Female");
-        genderGroup = new ButtonGroup();
-        genderGroup.add(male);
-        genderGroup.add(female);
 
-        // Hobbies Checkboxes
-        hobby1 = new JCheckBox("Reading");
-        hobby2 = new JCheckBox("Sports");
-        hobby3 = new JCheckBox("Music");
+        bg = new ButtonGroup();
+        bg.add(male);
+        bg.add(female);
 
-        // Country Dropdown
-        String[] countries = {"Nepal","India","USA","UK","Other"};
-        countryList = new JComboBox<>(countries);
+        h1 = new JCheckBox("Reading");
+        h2 = new JCheckBox("Sports");
+        h3 = new JCheckBox("Music");
 
-        // Opinion TextArea
-        opinion = new JTextArea();
+        String c[] = {"Nepal","India","USA","UK"};
+        country = new JComboBox(c);
 
-        // Submit Button
+        ta = new JTextArea();
+
         submit = new JButton("Submit");
-        submit.addActionListener(this);
 
-        // Set bounds
-        l1.setBounds(30,30,100,20); t1.setBounds(150,30,200,20);
-        l2.setBounds(30,70,100,20); t2.setBounds(150,70,200,20);
-        l3.setBounds(30,110,100,20); t3.setBounds(150,110,200,20);
-        l4.setBounds(30,150,100,20); p1.setBounds(150,150,200,20);
-        l5.setBounds(30,190,100,20); male.setBounds(150,190,70,20); female.setBounds(230,190,80,20);
-        l6.setBounds(30,230,100,20); hobby1.setBounds(150,230,100,20); hobby2.setBounds(150,260,100,20); hobby3.setBounds(150,290,100,20);
-        l7.setBounds(30,330,100,20); countryList.setBounds(150,330,200,20);
-        l8.setBounds(30,370,100,20); opinion.setBounds(150,370,200,80);
-        submit.setBounds(180,470,100,30);
+        f.setLayout(null);
+        f.setSize(500,600);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Add components
+        l1.setBounds(50,50,100,20);
+        t1.setBounds(200,50,200,20);
+
+        l2.setBounds(50,90,100,20);
+        t2.setBounds(200,90,200,20);
+
+        l3.setBounds(50,130,100,20);
+        t3.setBounds(200,130,200,20);
+
+        l4.setBounds(50,170,100,20);
+        p1.setBounds(200,170,200,20);
+
+        l5.setBounds(50,210,100,20);
+        male.setBounds(200,210,80,20);
+        female.setBounds(300,210,80,20);
+
+        l6.setBounds(50,250,100,20);
+        h1.setBounds(200,250,100,20);
+        h2.setBounds(200,280,100,20);
+        h3.setBounds(200,310,100,20);
+
+        l7.setBounds(50,350,100,20);
+        country.setBounds(200,350,200,20);
+
+        l8.setBounds(50,390,100,20);
+        ta.setBounds(200,390,200,80);
+
+        submit.setBounds(200,500,100,30);
+
         f.add(l1); f.add(t1);
         f.add(l2); f.add(t2);
         f.add(l3); f.add(t3);
         f.add(l4); f.add(p1);
+
         f.add(l5); f.add(male); f.add(female);
-        f.add(l6); f.add(hobby1); f.add(hobby2); f.add(hobby3);
-        f.add(l7); f.add(countryList);
-        f.add(l8); f.add(opinion);
+
+        f.add(l6); f.add(h1); f.add(h2); f.add(h3);
+
+        f.add(l7); f.add(country);
+
+        f.add(l8); f.add(ta);
+
         f.add(submit);
+
+        submit.addActionListener(this);
+
+        f.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e){
@@ -98,26 +131,33 @@ public class lab3004 implements ActionListener {
         String email = t3.getText();
         String password = new String(p1.getPassword());
 
-        String gender = "";
-        if(male.isSelected()) gender = "Male";
-        else if(female.isSelected()) gender = "Female";
+        String gender="";
+        if(male.isSelected()) gender="Male";
+        if(female.isSelected()) gender="Female";
 
-        String hobbies = "";
-        if(hobby1.isSelected()) hobbies += "Reading ";
-        if(hobby2.isSelected()) hobbies += "Sports ";
-        if(hobby3.isSelected()) hobbies += "Music ";
+        String hobbies="";
+        if(h1.isSelected()) hobbies+="Reading ";
+        if(h2.isSelected()) hobbies+="Sports ";
+        if(h3.isSelected()) hobbies+="Music ";
 
-        String country = (String) countryList.getSelectedItem();
-        String opinionText = opinion.getText();
+        String c = country.getSelectedItem().toString();
 
-        String info = "Name: "+name+"\nAddress: "+address+"\nEmail: "+email+
-                      "\nPassword: "+password+"\nGender: "+gender+"\nHobbies: "+hobbies+
-                      "\nCountry: "+country+"\nOpinion: "+opinionText;
+        String op = ta.getText();
 
-        JOptionPane.showMessageDialog(f, info, "Student Information", JOptionPane.INFORMATION_MESSAGE);
+        String info =
+                "Name: "+name+
+                "\nAddress: "+address+
+                "\nEmail: "+email+
+                "\nPassword: "+password+
+                "\nGender: "+gender+
+                "\nHobbies: "+hobbies+
+                "\nCountry: "+c+
+                "\nOpinion: "+op;
+
+        JOptionPane.showMessageDialog(f,info);
     }
 
-    public static void main(String[] args){
+    public static void main(String args[]){
         new lab3004();
     }
 }
