@@ -1,3 +1,0 @@
-21,Milan,Kathmandu,9811111111
-22,Ram,Kritipur,9822222222
-23,Sita,Pokhara,9833333333

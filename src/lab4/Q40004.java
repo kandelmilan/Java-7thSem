@@ -1,6 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Write a Java program to illustrate the following Swing component 
+a.JfileChoose
+b.Internal frames 
+c.Jtable
+d.JTree
  */
 package lab4;
 
