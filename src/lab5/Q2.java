@@ -16,57 +16,84 @@ public class Q2 extends JFrame {
     public Q2() {
 
         setTitle("Employee CRUD Application");
-        setSize(700, 500);
+        setSize(750, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
-        // ====== Top Panel (Form) ======
-        JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
+        // ====== FORM PANEL ======
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        panel.add(new JLabel("Employee ID:"));
-        txtId = new JTextField();
-        panel.add(txtId);
+        // Row 1
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new JLabel("Employee ID:"), gbc);
 
-        panel.add(new JLabel("Name:"));
-        txtName = new JTextField();
-        panel.add(txtName);
+        gbc.gridx = 1;
+        txtId = new JTextField(15);
+        panel.add(txtId, gbc);
 
-        panel.add(new JLabel("Address:"));
-        txtAddress = new JTextField();
-        panel.add(txtAddress);
+        // Row 2
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new JLabel("Name:"), gbc);
 
-        panel.add(new JLabel("Salary:"));
-        txtSalary = new JTextField();
-        panel.add(txtSalary);
+        gbc.gridx = 1;
+        txtName = new JTextField(15);
+        panel.add(txtName, gbc);
 
+        // Row 3
+        gbc.gridx = 0; gbc.gridy = 2;
+        panel.add(new JLabel("Address:"), gbc);
+
+        gbc.gridx = 1;
+        txtAddress = new JTextField(15);
+        panel.add(txtAddress, gbc);
+
+        // Row 4
+        gbc.gridx = 0; gbc.gridy = 3;
+        panel.add(new JLabel("Salary:"), gbc);
+
+        gbc.gridx = 1;
+        txtSalary = new JTextField(15);
+        panel.add(txtSalary, gbc);
+
+        // Buttons Row
+        gbc.gridx = 0; gbc.gridy = 4;
         btnAdd = new JButton("Add");
-        btnUpdate = new JButton("Update");
-        btnDelete = new JButton("Delete");
-        btnClear = new JButton("Clear");
+        panel.add(btnAdd, gbc);
 
-        panel.add(btnAdd);
-        panel.add(btnUpdate);
-        panel.add(btnDelete);
-        panel.add(btnClear);
+        gbc.gridx = 1;
+        btnUpdate = new JButton("Update");
+        panel.add(btnUpdate, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 5;
+        btnDelete = new JButton("Delete");
+        panel.add(btnDelete, gbc);
+
+        gbc.gridx = 1;
+        btnClear = new JButton("Clear");
+        panel.add(btnClear, gbc);
 
         add(panel, BorderLayout.NORTH);
 
-        // ====== Table ======
+        // ====== TABLE ======
         model = new DefaultTableModel(new String[]{"ID", "Name", "Address", "Salary"}, 0);
         table = new JTable(model);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // ====== DB Connection ======
+        // ====== DB ======
         connectDB();
         loadData();
 
-        // ====== Button Actions ======
+        // ====== ACTIONS ======
         btnAdd.addActionListener(e -> addEmployee());
         btnUpdate.addActionListener(e -> updateEmployee());
         btnDelete.addActionListener(e -> deleteEmployee());
         btnClear.addActionListener(e -> clearFields());
 
-        // Click row to fill form
+        // Click row
         table.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int i = table.getSelectedRow();
@@ -80,20 +107,28 @@ public class Q2 extends JFrame {
         setVisible(true);
     }
 
-    // ====== Connect DB ======
-    void connectDB() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/Company", "root", ""
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // ====== CONNECT DB ======
+void connectDB() {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
-    // ====== Load Data ======
+        con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:8080/company",
+                "root",
+                ""
+        );
+
+        System.out.println("DB Connected Successfully!");
+
+    } catch (Exception e) {
+        e.printStackTrace(); // IMPORTANT (better than hiding error)
+        JOptionPane.showMessageDialog(this, "DB Error: " + e.getMessage());
+    }
+}
+    // ====== LOAD DATA ======
     void loadData() {
+        if (con == null) return;
+
         model.setRowCount(0);
         try {
             Statement st = con.createStatement();
@@ -101,19 +136,25 @@ public class Q2 extends JFrame {
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getInt("Eid"),
-                    rs.getString("Name"),
-                    rs.getString("Address"),
-                    rs.getDouble("Salary")
+                        rs.getInt("Eid"),
+                        rs.getString("Name"),
+                        rs.getString("Address"),
+                        rs.getDouble("Salary")
                 });
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // ====== Add ======
+    // ====== ADD ======
     void addEmployee() {
+        if (con == null) {
+            JOptionPane.showMessageDialog(this, "Database not connected!");
+            return;
+        }
+
         try {
             String sql = "INSERT INTO Employee VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -124,18 +165,20 @@ public class Q2 extends JFrame {
             ps.setDouble(4, Double.parseDouble(txtSalary.getText()));
 
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Employee Added!");
 
+            JOptionPane.showMessageDialog(this, "Employee Added!");
             loadData();
             clearFields();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    // ====== Update ======
+    // ====== UPDATE ======
     void updateEmployee() {
+        if (con == null) return;
+
         try {
             String sql = "UPDATE Employee SET Name=?, Address=?, Salary=? WHERE Eid=?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -146,18 +189,20 @@ public class Q2 extends JFrame {
             ps.setInt(4, Integer.parseInt(txtId.getText()));
 
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Employee Updated!");
 
+            JOptionPane.showMessageDialog(this, "Employee Updated!");
             loadData();
             clearFields();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    // ====== Delete ======
+    // ====== DELETE ======
     void deleteEmployee() {
+        if (con == null) return;
+
         try {
             String sql = "DELETE FROM Employee WHERE Eid=?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -166,16 +211,15 @@ public class Q2 extends JFrame {
             ps.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Employee Deleted!");
-
             loadData();
             clearFields();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    // ====== Clear Fields ======
+    // ====== CLEAR ======
     void clearFields() {
         txtId.setText("");
         txtName.setText("");

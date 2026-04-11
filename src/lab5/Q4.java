@@ -3,123 +3,108 @@ Handle key  events such that pressing 'L' performs login and pressing 'c'  clear
 Assume user table having fields Uid  and password in the database named account.
 */
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class Q4 implements ActionListener, KeyListener {
+public class Q4 extends JFrame implements KeyListener {
 
-    JFrame f;
-    JLabel l1, l2;
-    JTextField t1;
-    JPasswordField t2;
-    JButton b1, b2;
+    JTextField txtUser;
+    JPasswordField txtPass;
+    JButton btnLogin, btnCancel;
 
     Connection con;
 
     public Q4() {
-        f = new JFrame("Login Form");
 
-        l1 = new JLabel("User ID:");
-        l2 = new JLabel("Password:");
+        setTitle("Login Form");
+        setSize(350, 200);
+        setLayout(new GridLayout(3, 2, 10, 10));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-        t1 = new JTextField();
-        t2 = new JPasswordField();
+        // Labels & Fields
+        add(new JLabel("User ID:"));
+        txtUser = new JTextField();
+        add(txtUser);
 
-        b1 = new JButton("OK");
-        b2 = new JButton("Cancel");
+        add(new JLabel("Password:"));
+        txtPass = new JPasswordField();
+        add(txtPass);
 
-        f.setLayout(null);
+        btnLogin = new JButton("OK");
+        btnCancel = new JButton("Cancel");
 
-        l1.setBounds(50, 50, 80, 25);
-        t1.setBounds(140, 50, 150, 25);
+        add(btnLogin);
+        add(btnCancel);
 
-        l2.setBounds(50, 100, 80, 25);
-        t2.setBounds(140, 100, 150, 25);
+        // Key Listener
+        txtUser.addKeyListener(this);
+        txtPass.addKeyListener(this);
 
-        b1.setBounds(80, 150, 80, 30);
-        b2.setBounds(180, 150, 80, 30);
-
-        f.add(l1); f.add(t1);
-        f.add(l2); f.add(t2);
-        f.add(b1); f.add(b2);
-
-        // Events
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-
-        t1.addKeyListener(this);
-        t2.addKeyListener(this);
-        f.addKeyListener(this);
-
-        f.setSize(350, 250);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(3);
+        // Button Actions
+        btnLogin.addActionListener(e -> login());
+        btnCancel.addActionListener(e -> clearFields());
 
         connectDB();
+
+        setVisible(true);
     }
 
+    // DB Connection
     void connectDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+
             con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/account", "root", ""
+                    "jdbc:mysql://localhost:8080/account",
+                    "root",
+                    ""
             );
+
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    // Button handling
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-            login();
-        } else if (e.getSource() == b2) {
-            clear();
-        }
-    }
-
-    // Login method
+    // LOGIN FUNCTION
     void login() {
         try {
-            String uid = t1.getText();
-            String pass = new String(t2.getPassword());
-
             String sql = "SELECT * FROM user WHERE Uid=? AND password=?";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setString(1, uid);
-            ps.setString(2, pass);
+            ps.setString(1, txtUser.getText());
+            ps.setString(2, new String(txtPass.getPassword()));
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                JOptionPane.showMessageDialog(f, "Login Successful!");
+                JOptionPane.showMessageDialog(this, "Login Successful!");
             } else {
-                JOptionPane.showMessageDialog(f, "Invalid User!");
+                JOptionPane.showMessageDialog(this, "Invalid Login!");
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
-    // Clear method
-    void clear() {
-        t1.setText("");
-        t2.setText("");
-        t1.requestFocus();
+    // CLEAR FUNCTION
+    void clearFields() {
+        txtUser.setText("");
+        txtPass.setText("");
+        txtUser.requestFocus();
     }
 
-    // Key events
+    // KEY EVENTS
     public void keyPressed(KeyEvent e) {
-        char ch = e.getKeyChar();
 
-        if (ch == 'L' || ch == 'l') {
+        if (e.getKeyChar() == 'L' || e.getKeyChar() == 'l') {
             login();
         }
 
-        if (ch == 'C' || ch == 'c') {
-            clear();
+        if (e.getKeyChar() == 'C' || e.getKeyChar() == 'c') {
+            clearFields();
         }
     }
 

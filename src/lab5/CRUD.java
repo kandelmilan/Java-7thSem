@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class CRUD {
 
-    static final String URL = "jdbc:mysql://localhost:3306/Company";
+    static final String URL = "jdbc:mysql://localhost:8080/company";
     static final String USER = "root";
     static final String PASSWORD = ""; 
 
