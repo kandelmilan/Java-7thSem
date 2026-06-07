@@ -18,7 +18,7 @@ class AddForm {
         b6= new JButton("Minus");
 
         f.setSize(300, 300);
-        // ✅ Correct FlowLayou
+
         f.setLayout(new GridLayout(0,2));
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
