@@ -70,3 +70,64 @@ class Q2007 {
         sc.close();
     }
 }
+
+
+// with 2 employee  details and find who earns more than 300 
+//try {
+//            Scanner sc = new Scanner(System.in);
+//
+//            FileWriter fout = new FileWriter("sample1.txt");
+//            BufferedWriter bw = new BufferedWriter(fout);
+//            System.out.println("Enter Detials of 2 Employee: ");
+//            for (int i = 0; i < 2; i++) {
+//                System.out.println("Employee " + i);
+//                System.out.println("Eid :");
+//                int eid = sc.nextInt();
+//                sc.nextLine();
+//
+//                System.out.println("Name :");
+//                String name = sc.nextLine();
+//
+//                System.out.println("Departments :");
+//                String dept = sc.nextLine();
+//                
+//                
+//                System.out.println("Salary :");
+//                double salary = sc.nextDouble();
+//
+//                bw.write(eid + "\n" + name + "\n" + dept + "\n" + salary);
+//                bw.newLine();
+//            }
+//            bw.close();
+//            fout.close();
+//            System.out.println("File Written Successfully");
+//        } catch (IOException e) {
+//            System.out.print(e.getMessage());
+//        }
+//
+//        try {
+//            FileReader fin = new FileReader("sample1.txt");
+//            BufferedReader br = new BufferedReader(fin);
+//
+//            System.out.println("\nEmployee Details:");
+//
+//            String eid, name, dept;
+//
+//            while ((eid = br.readLine()) != null) {
+//                name = br.readLine();
+//                dept = br.readLine();
+//                double salary = Double.parseDouble(br.readLine());
+//                
+//                if(salary >300 ){
+//                System.out.println("\nEid: " + eid);
+//                System.out.println("Name: " + name);
+//                System.out.println("Department: " + dept);
+//                }
+//            }
+//
+//            br.close();
+//            fin.close();
+//
+//        } catch (IOException e) {
+//            System.out.print(e.getMessage());
+//        }
