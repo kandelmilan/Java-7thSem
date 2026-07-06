@@ -1,51 +1,139 @@
-import java.sql.*;
-
-//Assume a table MOVIE(id, title, genre). Now, using JDBC, perform the following queries:
-//a. Add any three records to the MOVIE table.
-//b. Using a prepared statement, update the genre to “Comedy” having the title “Jatra”.
-
+import javax.swing.*;
+import java.awt.*;
 
 public class practice {
 
-    public static void main(String[] args) throws Exception {
+    JFrame f;
 
-        // Load Driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
+    practice() {
 
-        // Connection (FIXED PORT 3306)
-        Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/HCOE",
-                "root",
-                ""
-        );
+        f = new JFrame("GridBagLayout Example");
 
-       String query="INSERT INTO MOVIE(id, title, genre) VALUES (?,?,?)";
-       
-       PreparedStatement ps=con.prepareStatement(query);
-       
-       ps.setInt(1,1001);
-       ps.setString(2,"Jatra");
-       ps.setString(3,"romance");
-       ps.executeUpdate();
-       
-        ps.setInt(1,1003);
-       ps.setString(2,"Sonic 3 - Shadow the Hedgehog");
-       ps.setString(3,"Action and Animation");
-       ps.executeUpdate();
-       
-        ps.setInt(1,1002);
-       ps.setString(2,"Mufasa");
-       ps.setString(3,"Adventure");
-       
-       int row=ps.executeUpdate();
-       System.out.print(row+"rows Added");
-       
-       
-       String q2="UPDATE  MOVIE SET genre=? WHERE title=?";
-       PreparedStatement ps2=con.prepareStatement(q2);
-       ps.executeUpdate();
-       con.close();
-       
-       
+        JButton b1 = new JButton("Button 1");
+        JButton b2 = new JButton("Button 2");
+        JButton b3 = new JButton("Button 3");
+        JButton b4 = new JButton("Button 4");
+
+        f.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // Button 1
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        f.add(b1, gbc);
+
+        // Button 2
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        f.add(b2, gbc);
+
+        // Button 3 (spans 2 columns)
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        f.add(b3, gbc);
+
+        // Button 4
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        f.add(b4, gbc);
+
+        f.setSize(400, 300);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        new practice();
     }
 }
+//import javax.swing.*;
+//
+//public class practice {
+//
+//    JFrame f;
+//    JTable table;
+//
+//    practice() {
+//
+//        f = new JFrame("JTable Example");
+//
+//        // Data (rows)
+//        String[][] data = {
+//            {"1", "Rajan", "A"},
+//            {"2", "Sita", "A-"},
+//            {"3", "Hari", "B+"}
+//        };
+//
+//        // Column names
+//        String[] columns = {"ID", "Name", "Grade"};
+//
+//        // JTable creation
+//        table = new JTable(data, columns);
+//
+//        // Add table inside scroll pane
+//        f.add(new JScrollPane(table));
+//
+//        f.setSize(400, 300);
+//        f.setVisible(true);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    }
+//
+//    public static void main(String[] args) {
+//        new practice();
+//    }
+//}
+//
+////import javax.swing.*;
+////import javax.swing.tree.*;
+////
+////public class practice {
+////
+////    JFrame f;
+////    JTree tr;
+////
+////    DefaultMutableTreeNode root, fruit, food, apple, banana, momo, chowmin;
+////
+////    practice() {
+////
+////        f = new JFrame("JTree Improved");
+////
+////        // ROOT
+////        root = new DefaultMutableTreeNode("Items");
+////
+////        // FRUIT branch
+////        fruit = new DefaultMutableTreeNode("Fruit");
+////        apple = new DefaultMutableTreeNode("Apple");
+////        banana = new DefaultMutableTreeNode("Banana");
+////
+////        fruit.add(apple);
+////        fruit.add(banana);
+////
+////        // FOOD branch
+////        food = new DefaultMutableTreeNode("Food");
+////        momo = new DefaultMutableTreeNode("MOMO");
+////        chowmin = new DefaultMutableTreeNode("Chowmin");
+////
+////        food.add(momo);
+////        food.add(chowmin);
+////
+////        // Attach to root
+////        root.add(fruit);
+////        root.add(food);
+////
+////        // CREATE TREE (IMPORTANT FIX)
+////        tr = new JTree(root);
+////
+////        // ADD SCROLLABLE TREE
+////        f.add(new JScrollPane(tr));
+////
+////        f.setSize(300, 300);
+////        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+////        f.setVisible(true);
+////    }
+////
+////    public static void main(String[] args) {
+////        new practice();
+////    }
+////}
